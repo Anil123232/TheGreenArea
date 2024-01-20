@@ -5,6 +5,7 @@ import {
   createPost,
   deleteComment,
   getAllPost,
+  getComments,
   likePost,
   unlikePost,
 } from "../domains/Post/index.js";
@@ -27,5 +28,9 @@ router.route("/:postId/comment").post(authenticate, createComment);
 
 // delte comment the post
 router.route("/comment/:commentId").delete(authenticate, deleteComment);
+
+
+//get commnent
+router.route("/:postId/comments").get(authenticate, getComments);
 
 export default router;

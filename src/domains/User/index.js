@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 export const createUser = catchAsync(async (req, res, next) => {
   try {
     console.log("hitted");
-    const { username, fullname, email, password, who, gender } = req.body;
+    const { username, fullname, email, password, role, gender, who } = req.body;
     const findEmail = await UserInfoModel.findOne({ email });
     const findUsername = await UserInfoModel.findOne({ username });
     if (findEmail && findEmail.isVerified === 1) {
@@ -77,6 +77,7 @@ export const createUser = catchAsync(async (req, res, next) => {
           password: hashedPassword,
           username,
           fullname,
+          role,
           who,
           gender,
           verificationToken,
@@ -224,7 +225,7 @@ export const verifyUser = catchAsync(async (req, res, next) => {
         "You are not logged in. Please login to get access."
       );
     const token = authHeader.split(" ")[1];
-    console.log("verify", token)
+    console.log("verify", token);
     if (!token) {
       return res.sendStatus(401);
     }
@@ -241,7 +242,7 @@ export const verifyUser = catchAsync(async (req, res, next) => {
             ...user._doc,
             password: undefined,
           };
-          res.status(200).json({user: withOutPassword});
+          res.status(200).json({ user: withOutPassword });
         })
         .catch((err) => {
           console.log("Error while finding user:", err);
@@ -250,5 +251,15 @@ export const verifyUser = catchAsync(async (req, res, next) => {
     });
   } catch (err) {
     throw new Error(err);
+  }
+});
+
+//get staff
+export const getStaff = catchAsync(async (req, res, next) => {
+  try {
+    const staffMembers = await UserInfoModel.find({ role: "staff" });
+    res.status(200).json(staffMembers);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
   }
 });

@@ -12,12 +12,20 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     location: {
-      type: String,
-      default: "",
+      type: Object,
+      default: {},
     },
     postedBy: {
       type: ObjectId,
       ref: "userInformation",
+    },
+    datePick: {
+      type: String,
+      default: "",
+    },
+    isEvent: {
+      type: Boolean,
+      default: false,
     },
     likes: [
       {
