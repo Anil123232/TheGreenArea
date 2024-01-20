@@ -30,6 +30,10 @@ const UserInfoSchema = new mongoose.Schema({
     enum: ["user", "staff"],
     default: "user",
   },
+  who:{
+    type: String,
+    default: "UNICEF",
+  },
   profilePic: {
     type: String,
     default: "",

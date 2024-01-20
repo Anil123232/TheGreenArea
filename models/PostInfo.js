@@ -12,8 +12,8 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
     location: {
-      type: String,
-      default: "",
+      type: Object,
+      default: {},
     },
     postedBy: {
       type: ObjectId,
