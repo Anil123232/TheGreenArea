@@ -7,7 +7,7 @@ import nodemailer from "nodemailer";
 export const createUser = catchAsync(async (req, res, next) => {
   try {
     console.log("hitted");
-    const { username, fullname, email, password, who, gender } = req.body;
+    const { username, fullname, email, password, role, gender } = req.body;
     const findEmail = await UserInfoModel.findOne({ email });
     const findUsername = await UserInfoModel.findOne({ username });
     if (findEmail && findEmail.isVerified === 1) {
@@ -77,7 +77,7 @@ export const createUser = catchAsync(async (req, res, next) => {
           password: hashedPassword,
           username,
           fullname,
-          who,
+          role,
           gender,
           verificationToken,
         });

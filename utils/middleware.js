@@ -8,14 +8,14 @@ dotenv.config();
 
 export const authenticate = catchAsync(async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log(authHeader);
+  console.log("something", authHeader);
   if (!(authHeader && authHeader.toLowerCase().startsWith("bearer")))
     throw createError(
       401,
       "You are not logged in. Please login to get access."
     );
-  const token = authHeader.split(" ")[2];
-  console.log(token);
+  const token = authHeader.split(" ")[1];
+  console.log("this is token", token);
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = await UserInfoModel.findById(decoded.userId);

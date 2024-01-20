@@ -4,14 +4,16 @@ import CommentModel from "../../../models/CommentInfo.js";
 
 export const createPost = catchAsync(async (req, res, next) => {
   try {
-    const { picture, content, location } = req.body;
-    if (!picture && !content && !location) {
+    const { picture, content, location, datePick, isEvent } = req.body;
+    if (!picture && !content) {
       return res.status(422).json({ message: "Post can't be empty" });
     }
     const userdata = new Postmodel({
       picture,
       content,
       location,
+      datePick,
+      isEvent,
       postedBy: req.user._id,
     });
 
@@ -126,5 +128,19 @@ export const deleteComment = catchAsync(async (req, res, next) => {
     }
   } catch (error) {
     throw new Error(error);
+  }
+});
+
+// get comment
+export const getComments = catchAsync(async (req, res, next) => {
+  try {
+    const postId = req.params.postId;
+    const comments = await CommentModel.find({ post: postId })
+      .sort({ createdAt: -1 })
+      .populate("author", "username profilePic gender");
+    res.status(200).json({ comments });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });

@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "userInformation",
     },
+    datePick: {
+      type: String,
+      default: "",
+    },
+    isEvent: {
+      type: Boolean,
+      default: false,
+    },
     likes: [
       {
         type: ObjectId,

@@ -6,7 +6,10 @@ var jsonParser = bodyParser.json();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  }));
 app.use(jsonParser);
 import connectMongo from "./config/connection.js";
 

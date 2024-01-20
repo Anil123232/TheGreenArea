@@ -27,7 +27,8 @@ const UserInfoSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin"],
+    enum: ["user", "staff"],
+    default: "user",
   },
   profilePic: {
     type: String,
@@ -38,10 +39,6 @@ const UserInfoSchema = new mongoose.Schema({
     required: true,
   },
   gender: {
-    type: String,
-    default: "",
-  },
-  bio: {
     type: String,
     default: "",
   },
