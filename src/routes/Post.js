@@ -6,6 +6,7 @@ import {
   deleteComment,
   getAllPost,
   getComments,
+  getEvenets,
   likePost,
   unlikePost,
 } from "../domains/Post/index.js";
@@ -32,5 +33,7 @@ router.route("/comment/:commentId").delete(authenticate, deleteComment);
 
 //get commnent
 router.route("/:postId/comments").get(authenticate, getComments);
+
+router.route("/upcoming-events").get(authenticate, getEvenets);
 
 export default router;

@@ -145,3 +145,14 @@ export const getComments = catchAsync(async (req, res, next) => {
   }
 });
 
+export const getEvenets = catchAsync(async (req, res, next) => {
+    try{
+      const result = await Postmodel.find({isEvent: true})
+      .sort({ createdAt: -1 })
+      res.status(200).json({ result });
+    }
+    catch(err){
+      console.log(err);
+      res.status(500).json({ message: "Failed to get all events" });
+    }
+  });
