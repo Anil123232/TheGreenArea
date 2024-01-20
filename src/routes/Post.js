@@ -4,6 +4,7 @@ import {
   createComment,
   createPost,
   deleteComment,
+  fetchMyPost,
   getAllPost,
   getComments,
   getEvenets,
@@ -36,4 +37,7 @@ router.route("/:postId/comments").get(authenticate, getComments);
 
 router.route("/upcoming-events").get(authenticate, getEvenets);
 
+router.route("/fetchMyPost/:id").get(authenticate,fetchMyPost); 
+
+  
 export default router;

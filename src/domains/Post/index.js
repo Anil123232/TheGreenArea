@@ -148,11 +148,22 @@ export const getComments = catchAsync(async (req, res, next) => {
 export const getEvenets = catchAsync(async (req, res, next) => {
     try{
       const result = await Postmodel.find({isEvent: true})
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 }).populate("postedBy","_id username profilePic gender fullname")
       res.status(200).json({ result });
     }
     catch(err){
       console.log(err);
       res.status(500).json({ message: "Failed to get all events" });
+    }
+  });
+
+export const fetchMyPost = catchAsync(async (req, res, next) => {
+    try {
+      const myPosts = await Postmodel.find({ postedBy: req.params.id }).populate(
+        "postedBy","_id username profilePic gender fullname")
+      res.status(200).json(myPosts);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "Failed to fetch own stories" });
     }
   });
